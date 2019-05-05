@@ -28,8 +28,9 @@ const int NOUNS = 6;
 class words{
 	public:
 		void set_directions(words *dir);
+        void set_verbs(words *vbs);
         words(){
-            word ="";
+            string word ="";
             code = 0;
         };
         words(string wrd, int cde){
@@ -48,8 +49,9 @@ class words{
         void SetCode(int cde){
             code = cde;
         };
+         string word;
     private:
-        string word;
+        // string word;
         int code;
     
 };
@@ -65,46 +67,25 @@ class rooms {
         void SetDescription(string desc){
             description = desc;
         };
-	private:
+        int GetDirs(){
+            return exits_to_room[DIRS];
+        };
+        void SetDirs(int exits){
+            exits_to_room[DIRS] = exits;
+        };
+	// private:
         string description;
         int exits_to_room[DIRS];
 };
-
-class verbs {
-	public:
-		void set_verbs(words *vbs);
-		verbs(){
-			word = "";
-			code = 0;
-		};
-		verbs(string wrd, int cde){
-			word = wrd;
-			code = cde;
-		};
-		string GetVerb(){
-			return word;
-		};
-		void SetVerb(string sVerb){
-			word = sVerb;
-		};
-		string GetCode(){
-			return code;
-		}
-		void SetCode(int cde){
-			code = cde;
-		}
-	private:
-		string word;
-		int code;
-
-};
-
 class nouns {
     public:
-        // string GetNoun(){
-		// 	return
-		// }
-		void set_nouns(nouns *nns) ;
+		void set_nouns(nouns *nns);
+        nouns(){
+            
+        };
+        string word;
+        int code;
+        int location;
 	private:
         string word;
         string description;
@@ -113,6 +94,38 @@ class nouns {
         bool can_carry;
     
 };
+
+
+// class verbs {
+// 	public:
+// 		void set_verbs(words *vbs);
+// 		verbs(){
+// 			word = "";
+// 			code = 0;
+// 		};
+// 		verbs(string wrd, int cde){
+// 			word = wrd;
+// 			code = cde;
+// 		};
+// 		string GetVerb(){
+// 			return word;
+// 		};
+// 		void SetVerb(string sVerb){
+// 			word = sVerb;
+// 		};
+// 		int GetCode(){
+// 			return code;
+// 		}
+// 		void SetCode(int cde){
+// 			code = cde;
+// 		}
+// 	private:
+// 		string word;
+// 		int code;
+
+// };
+
+
 
 
 void rooms::set_rooms(rooms *rms)
@@ -195,9 +208,8 @@ void words::set_directions(words *dir)
     dir[WEST].code = WEST;
     dir[WEST].word = "WEST";
 }
-void verbs::set_verbs(words *vbs)
+void words::set_verbs(words *vbs)
 {
-    //ALT Double click is your friend.
 	//REPLACE ACCESS .notations with SETTERS
     vbs[GET].code = GET;
     vbs[GET].word = "GET";
@@ -221,33 +233,33 @@ void nouns::set_nouns(nouns *nns)
 	//REPLACE ACCESS .notations with SETTERS
     nns[STORE_DOOR].word = "DOOR";
     nns[STORE_DOOR].code = STORE_DOOR;
-    nns[STORE_DOOR].description = "a closed store room door";
+    nns[STORE_DOOR].description = "The gate is closed from this side";
     nns[STORE_DOOR].can_carry = false;
     nns[STORE_DOOR].location = GATE;
     nns[SHURIKEN].word = "SHURIKEN";
     nns[SHURIKEN].code = SHURIKEN;
-    nns[SHURIKEN].description = "a magnet";
+    nns[SHURIKEN].description = "Shinobis shuriken";
     nns[SHURIKEN].can_carry = true;
-    nns[SHURIKEN].location = NONE;
+    nns[SHURIKEN].location = OUTSKIRTS;
     nns[FLAME_VENT].word = "FLAME_VENT";
     nns[FLAME_VENT].code = FLAME_VENT;
-    nns[FLAME_VENT].description = "a parking meter";
-    nns[FLAME_VENT].can_carry = false;
+    nns[FLAME_VENT].description = "Flame vent";
+    nns[FLAME_VENT].can_carry = true;
     nns[FLAME_VENT].location = VALLEY;
     nns[FIRECRACKERS].word = "FIRECRACKERS";
     nns[FIRECRACKERS].code = FIRECRACKERS;
-    nns[FIRECRACKERS].description = "a roulette wheel";
-    nns[FIRECRACKERS].can_carry = false;
+    nns[FIRECRACKERS].description = "Roberts firecrackers";
+    nns[FIRECRACKERS].can_carry = true;
     nns[FIRECRACKERS].location = BERG;
     nns[SEN].word = "SEN";
     nns[SEN].code = SEN;
     nns[SEN].description = "some money";
     nns[SEN].can_carry = true;
     nns[SEN].location = NONE;
-    nns[RICE].word = "ROD";
+    nns[RICE].word = "RICE";
     nns[RICE].code = RICE;
-    nns[RICE].description = "a fishing rod";
-    nns[RICE].can_carry = false;
+    nns[RICE].description = "a serving of delicious rice";
+    nns[RICE].can_carry = true;
     nns[RICE].location = OUTSKIRTS;
 }
 void section_command(string Cmd, string &wd1, string &wd2)
@@ -291,17 +303,20 @@ void section_command(string Cmd, string &wd1, string &wd2)
 			}
         }
     }
-    if(words.size() == 0)
+    if(words.size() == 0){
         cout << "No command given" << endl;
-    if(words.size() == 1)
+    }
+    if(words.size() == 1){
         wd1 = words.at(0);
+    }
     if(words.size() == 2)
     {
         wd1 = words.at(0);
         wd2 = words.at(1);
     }
-    if(words.size() > 2)
+    if(words.size() > 2){
         cout << "Command too long. Only type one or two words (direction or verb and noun)" << endl;
+    }
 }
 void look_around(int loc, rooms *rms, words *dir, nouns *nns)
 {
@@ -435,7 +450,7 @@ int main()
     string word_1;
     string word_2;
 
-    room rooms[ROOMS];
+    rooms rooms[ROOMS];
     set_rooms(rooms);
 
     words directions[DIRS];
