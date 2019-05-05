@@ -297,7 +297,7 @@ void section_command(string Cmd, string &wd1, string &wd2)
 
 void look_around(int loc, room *rms, words *dir, noun *nns)
 {
-                                                                                        //CONTAINS ACCESS .notation REPLACE WIHT GETTERS/SETTERS
+
     int i;
     
     cout << "I am in a " << rms[loc].description << "." << endl;       //ACCESS .notation was used

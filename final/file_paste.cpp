@@ -12,60 +12,90 @@
 
 using namespace std;
 
-// vector<string> DIRS;
 
 enum en_DIRS {NORTH, EAST, SOUTH, WEST};
 enum en_ROOMS {SPORTSHOP, CASINO, CARPARK, LOBBY, RESTAURANT, CORRIDOR, STOREROOM, POOL, GARDEN, POND, PUMPROOM};
 enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, INVENTORY, LOOK};
-
-// Added code
 enum en_NOUNS {STORE_DOOR, MAGNET, METER, ROULETTE, MONEY, FISHROD};
-// .....
 
 const int NONE = -1;
 const int DIRS = 4;
 const int ROOMS = 11;
 const int VERBS = 8;
-// Added code
 const int NOUNS = 6;
-// ....
 
-// class rooms {
-// 	public:
-// 	string word;
-// 	string description;
-// 	int code;
-// 	int exits_to_room[DIRS];
-// 	int location;
-// 	bool can_carry;
-
-// };
 class words {
-	public:
+private:
 	string word;
 	int code;
-
+public:
 	void set_directions(words *dir);
+	// words(string wrd, int cde){
+	// 	word = wrd;
+	// 	code = cde;
+	// };
+	words();
+	void set_word(string *wrd);
+	void set_code(int cde);
 
+	string get_word();
+	int get_code();
 };
 
 class room {
-	public:
+private:
+public:
 	string description;
 	int exits_to_room[DIRS];
 
 	void set_rooms(room *rms);
+	room();
+
+	// void set_description(string desc){
+	// 	description = desc;
+	// };
+	// void set_exits(int exit){
+	// 	exits_to_room[DIRS - 1] = exit;
+	// };
+	// string get_description(){
+	// 	return description;
+	// };
+	// int get_exits(){
+	// 	return exits_to_room[DIRS - 1];
+	// };
 };
 
 class noun {
-	public:
+private:
 	string word;
 	string description;
 	int code;
 	int location;
 	bool can_carry;
-
+public:
+	noun();
 	void set_nouns(noun *nns);
+	void set_word(string wrd);
+	void set_description(string desc);
+	void set_code(int cde);
+	void set_location(int loc);
+	void set_carry(bool carry);
+
+	string get_description(){
+		return description;
+	}
+	string get_word(){
+		return word;
+	};
+	int get_code(){
+		return code;
+	};
+	int get_location(){
+		return location;
+	};
+	bool get_carry(){
+		return can_carry;
+	};
 };
 
 class verb {
@@ -77,7 +107,7 @@ class verb {
 
 };
 
-void room::set_rooms(room *rms)
+void set_rooms(room *rms)
 {
 	rms[SPORTSHOP].description.assign("sports shop");
 	rms[SPORTSHOP].exits_to_room[NORTH] = NONE;
@@ -271,23 +301,27 @@ void section_command(string Cmd, string &wd1, string &wd2)
 }
 void look_around(int loc, room *rms, words *dir, noun *nns)
 {
+  words word;
+  room rooms;
+  noun nouns;
 	int i;
 	cout << "I am in a " << rms[loc].description << "." << endl;
 
 	for(i = 0; i < DIRS; i++)
 	{
+		// get_exit may need modifying
 		if(rms[loc].exits_to_room[i] != NONE)
 		{
-			cout << "There is an exit " << dir[i].word << " to a " << rms[rms[loc].exits_to_room[i]].description << "." << endl;
+			cout << "There is an exit " << dir[i].get_word() << " to a " << rms[rms[loc].exits_to_room[i]].description << "." << endl;
 		}
 	}
 	// Added code
 	// The look command should check which objects (nouns) are in the current room and report them to the player
 	for(i = 0; i < NOUNS; i++)
 	{
-		if(nns[i].location == loc)
+		if(nns[i].get_location() == loc)
 		{
-			cout << "I see " << nns[i].description << "." << endl;
+			cout << "I see " << nns[i].get_description() << "." << endl;
 		}
 	}
 }
@@ -300,17 +334,21 @@ bool parser(int &loc, string wd1, string wd2, words *dir, verb *vbs, room *rms,n
 	int i;
 	for(i = 0; i < DIRS; i++)
 	{
-		if(wd1 == dir[i].word)
+		if(wd1 == dir[i].get_word())
 		{
-			if(rms[loc].exits_to_room[dir[i].code] != NONE)
+			if(rms[loc].exits_to_room[dir[i].get_code()] != NONE)
 			{
-				loc = rms[loc].exits_to_room[dir[i].code];
+				// put set_exit instead of get_exit, will have to test
+				loc = rms[loc].exits_to_room[dir[i].get_code()];
 				cout << "I am now in a " << rms[loc].description << "." << endl;
 				// Added code. A special case for the corridor storeroom door.
-				if(loc == STOREROOM || loc == CORRIDOR)
-				{
-					nns[STORE_DOOR].location = loc;
-				}
+
+				// FIX ME FIX ME FIX ME
+
+				// if(loc == STOREROOM || loc == CORRIDOR)
+				// {
+				// 	noun *nns[STORE_DOOR].get_location() = loc;
+				// }
 				// ....
 				return true;
 			}
@@ -339,9 +377,9 @@ bool parser(int &loc, string wd1, string wd2, words *dir, verb *vbs, room *rms,n
 	{
 		for(i = 0; i < NOUNS; i++)
 		{
-			if(wd2 == nns[i].word)
+			if(wd2 == nns[i].get_word())
 			{
-			NOUN_MATCH = nns[i].code;
+			NOUN_MATCH = nns[i].get_code();
 			break;
 			}
 		}
@@ -369,8 +407,8 @@ bool parser(int &loc, string wd1, string wd2, words *dir, verb *vbs, room *rms,n
 					door_state = true;
 					rms[CORRIDOR].exits_to_room[EAST] = STOREROOM;
 					rms[STOREROOM].exits_to_room[WEST] = CORRIDOR;
-					nns[STORE_DOOR].description.clear();
-					nns[STORE_DOOR].description.assign("an open store room door");
+					nns[STORE_DOOR].get_description().clear();
+					nns[STORE_DOOR].get_description().assign("an open store room door");
 					cout << "I have opened the door." << endl;
 					return true;
 				}
