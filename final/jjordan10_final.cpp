@@ -50,7 +50,7 @@ class words{
             code = cde;
         };
          string word;
-    private:
+    // private:
         // string word;
         int code;
     
@@ -86,7 +86,7 @@ class nouns {
         string word;
         int code;
         int location;
-	private:
+	// private:
         string word;
         string description;
         int code;
@@ -344,7 +344,7 @@ void look_around(int loc, rooms *rms, words *dir, nouns *nns)
         }
     }
 }
-bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms, noun *nns)
+bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms, nouns *nns)
 {
     static bool door_state = false; //Door is closed by default
     int i;
@@ -446,6 +446,11 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms,
 
 int main()
 {
+
+    // enum en_DIRS {NORTH, EAST, SOUTH, WEST};
+    // enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE};
+    // enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, INVENTORY, LOOK};
+    // enum en_NOUNS {STORE_DOOR, SHURIKEN, FLAME_VENT, FIRECRACKERS, SEN, RICE};
     string command;
     string word_1;
     string word_2;
