@@ -29,10 +29,10 @@ class words{
 	public:
 		void set_directions(words *dir);
         void set_verbs(words *vbs);
-        words(){
-            string word ="";
-            code = 0;
-        };
+        // words(){
+        //     string word ="";
+        //     code = 0;
+        // };
         words(string wrd, int cde){
             word = wrd;
             code = cde;
@@ -49,9 +49,15 @@ class words{
         void SetCode(int cde){
             code = cde;
         };
+<<<<<<< HEAD
          string word;
     // private:
         // string word;
+=======
+        //  string word;
+    // private:
+        string word;
+>>>>>>> 38965f9ebcd950e694cbbdeecd69759bf76ee805
         int code;
     
 };
@@ -59,7 +65,7 @@ class words{
 class rooms {
     public:
 		void set_rooms(rooms *rms);
-		rooms();
+		rooms(string desc);
 
         string GetDesc(){
             return description;
@@ -127,9 +133,38 @@ class nouns {
 
 
 
+// void en_Rooms(vector<string>&vRooms){
+// 		vRooms.push_back("OUTSKIRTS");
+// 		vRooms.push_back("BERG");
+// 		vRooms.push_back("VALLEY");
+// 		vRooms.push_back("TEMPLE");
+// 		vRooms.push_back("STABLES");
+// 		vRooms.push_back("GATE");
+// 		vRooms.push_back("STOREROOM");
+// 		vRooms.push_back("FOUNTAINHEAD");
+// 		vRooms.push_back("GARDEN");
+// 		vRooms.push_back("POND");
+// 		vRooms.push_back("CASTLE");
+
+// }
 
 void rooms::set_rooms(rooms *rms)
 {
+	// enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE};
+	// vector<string>vRooms);
+	// 	vRooms.push_back("OUTSKIRTS");
+	// 	vRooms.push_back("BERG");
+	// 	vRooms.push_back("VALLEY");
+	// 	vRooms.push_back("TEMPLE");
+	// 	vRooms.push_back("STABLES");
+	// 	vRooms.push_back("GATE");
+	// 	vRooms.push_back("STOREROOM");
+	// 	vRooms.push_back("FOUNTAINHEAD");
+	// 	vRooms.push_back("GARDEN");
+	// 	vRooms.push_back("POND");
+	// 	vRooms.push_back("CASTLE");
+	
+	
     rms[OUTSKIRTS].description.assign("Ashina Outskirts");
     rms[OUTSKIRTS].exits_to_room[NORTH] = NONE;
     rms[OUTSKIRTS].exits_to_room[EAST] = NONE;
@@ -348,6 +383,7 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
 {
     static bool door_state = false; //Door is closed by default
     int i;
+	words word();
 
     for(i = 0; i < DIRS; i++)
     {
@@ -455,16 +491,18 @@ int main()
     string word_1;
     string word_2;
 
-    rooms rooms[ROOMS];
-    set_rooms(rooms);
+	vector<string>rooms;
+	set_rooms;
+	
 
-    words directions[DIRS];
-    set_directions(directions);
+    // words directions[DIRS];
+	vector<string>dir;
+    dir.set_directions(directions);
 
     words verbs[VERBS];
     set_verbs(verbs);
 
-    noun nouns[NOUNS];
+    nouns nouns[NOUNS];
     set_nouns(nouns);
 
     int location = VALLEY;
