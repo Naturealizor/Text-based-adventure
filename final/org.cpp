@@ -289,6 +289,7 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms,
 			else 
 			{
 				cout << "No exit that way." << endl;
+				return true;
 			}
 		}
 	}
@@ -348,6 +349,7 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms,
 				else if(door_state == true)
 				{
 					cout << "The door is already open." << endl;
+					return true;
 				}
 			}
 			else
@@ -361,9 +363,9 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms,
 			cout << "Opening that is not possible." << endl;
 			return true;
 		}
-		// ....
-		return false;
 	}
+	// ....
+		return false;
 }
 int main()
 {
