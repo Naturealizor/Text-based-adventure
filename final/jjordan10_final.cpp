@@ -29,10 +29,10 @@ class words{
 	public:
 		void set_directions(words *dir);
         void set_verbs(words *vbs);
-        // words(){
-        //     string word ="";
-        //     code = 0;
-        // };
+        words(){
+            string word ="";
+            code = 0;
+        };
         words(string wrd, int cde){
             word = wrd;
             code = cde;
@@ -49,15 +49,9 @@ class words{
         void SetCode(int cde){
             code = cde;
         };
-<<<<<<< HEAD
-         string word;
-    // private:
-        // string word;
-=======
         //  string word;
-    // private:
+    private:
         string word;
->>>>>>> 38965f9ebcd950e694cbbdeecd69759bf76ee805
         int code;
     
 };
@@ -65,7 +59,7 @@ class words{
 class rooms {
     public:
 		void set_rooms(rooms *rms);
-		rooms(string desc);
+		rooms();
 
         string GetDesc(){
             return description;
@@ -73,63 +67,86 @@ class rooms {
         void SetDescription(string desc){
             description = desc;
         };
-        int GetDirs(){
+        int GetExits(){
             return exits_to_room[DIRS];
         };
-        void SetDirs(int exits){
+        void SetExits(int exits){
             exits_to_room[DIRS] = exits;
         };
-	// private:
+	private:
         string description;
         int exits_to_room[DIRS];
 };
 class nouns {
-    public:
-		void set_nouns(nouns *nns);
-        nouns(){
-            
-        };
-        string word;
-        int code;
-        int location;
-	// private:
-        string word;
-        string description;
-        int code;
-        int location;
-        bool can_carry;
-    
+public:
+    void set_nouns(nouns *nns);
+    nouns();
+    string GetDesc(){
+        return description;
+    };
+    string GetWord(){
+        return word;
+    };
+    int GetCode(){
+        return code;
+    };
+    int GetLoc(){
+        return location;
+    };
+    bool GetCarry(){
+        return can_carry;  
+    };
+    void SetDescription(string desc){
+        description = desc;
+    };
+    void SetWord(string wrd){
+        word = wrd;
+    };
+    void SetCode(int cde){
+        code = cde;
+    };
+    void SetLoc(int loc){
+        location = loc;
+    };
+    void SetCarry(bool carry){
+        can_carry = carry;
+    };
+private:
+    string word;
+    string description;
+    int code;
+    int location;
+    bool can_carry;
 };
 
+class verbs {
+	public:
+		void set_verbs(words *vbs);
+		verbs(){
+			word = "";
+			code = 0;
+		};
+		verbs(string wrd, int cde){
+			word = wrd;
+			code = cde;
+		};
+		string GetVerb(){
+			return word;
+		};
+		void SetVerb(string sVerb){
+			word = sVerb;
+		};
+		int GetCode(){
+			return code;
+		}
+		void SetCode(int cde){
+			code = cde;
+		}
+	private:
+		string word;
+		int code;
 
-// class verbs {
-// 	public:
-// 		void set_verbs(words *vbs);
-// 		verbs(){
-// 			word = "";
-// 			code = 0;
-// 		};
-// 		verbs(string wrd, int cde){
-// 			word = wrd;
-// 			code = cde;
-// 		};
-// 		string GetVerb(){
-// 			return word;
-// 		};
-// 		void SetVerb(string sVerb){
-// 			word = sVerb;
-// 		};
-// 		int GetCode(){
-// 			return code;
-// 		}
-// 		void SetCode(int cde){
-// 			code = cde;
-// 		}
-// 	private:
-// 		string word;
-// 		int code;
-
-// };
+};
 
 
 
@@ -266,36 +283,36 @@ void words::set_verbs(words *vbs)
 void nouns::set_nouns(nouns *nns)
 {
 	//REPLACE ACCESS .notations with SETTERS
-    nns[STORE_DOOR].word = "DOOR";
-    nns[STORE_DOOR].code = STORE_DOOR;
-    nns[STORE_DOOR].description = "The gate is closed from this side";
-    nns[STORE_DOOR].can_carry = false;
-    nns[STORE_DOOR].location = GATE;
-    nns[SHURIKEN].word = "SHURIKEN";
-    nns[SHURIKEN].code = SHURIKEN;
-    nns[SHURIKEN].description = "Shinobis shuriken";
-    nns[SHURIKEN].can_carry = true;
-    nns[SHURIKEN].location = OUTSKIRTS;
-    nns[FLAME_VENT].word = "FLAME_VENT";
-    nns[FLAME_VENT].code = FLAME_VENT;
-    nns[FLAME_VENT].description = "Flame vent";
-    nns[FLAME_VENT].can_carry = true;
-    nns[FLAME_VENT].location = VALLEY;
-    nns[FIRECRACKERS].word = "FIRECRACKERS";
-    nns[FIRECRACKERS].code = FIRECRACKERS;
-    nns[FIRECRACKERS].description = "Roberts firecrackers";
-    nns[FIRECRACKERS].can_carry = true;
-    nns[FIRECRACKERS].location = BERG;
-    nns[SEN].word = "SEN";
-    nns[SEN].code = SEN;
-    nns[SEN].description = "some money";
-    nns[SEN].can_carry = true;
-    nns[SEN].location = NONE;
-    nns[RICE].word = "RICE";
-    nns[RICE].code = RICE;
-    nns[RICE].description = "a serving of delicious rice";
-    nns[RICE].can_carry = true;
-    nns[RICE].location = OUTSKIRTS;
+    nns[STORE_DOOR].SetWord("DOOR");
+    nns[STORE_DOOR].SetCode(STORE_DOOR);
+    nns[STORE_DOOR].SetDescription("The gate is closed from this side");
+    nns[STORE_DOOR].SetCarry(false);
+    nns[STORE_DOOR].SetLoc(GATE);
+    nns[SHURIKEN].SetWord("SHURIKEN");
+    nns[SHURIKEN].SetCode(SHURIKEN);
+    nns[SHURIKEN].SetDescription("Shinobis shuriken");
+    nns[SHURIKEN].SetCarry(true);
+    nns[SHURIKEN].SetLoc(OUTSKIRTS);
+    nns[FLAME_VENT].SetWord("FLAME_VENT");
+    nns[FLAME_VENT].SetCode(FLAME_VENT);
+    nns[FLAME_VENT].SetDescription("Flame vent");
+    nns[FLAME_VENT].SetCarry(true);
+    nns[FLAME_VENT].SetLoc(VALLEY);
+    nns[FIRECRACKERS].SetWord("FIRECRACKERS");
+    nns[FIRECRACKERS].SetCode(FIRECRACKERS);
+    nns[FIRECRACKERS].SetDescription("Roberts firecrackers");
+    nns[FIRECRACKERS].SetCarry(true);
+    nns[FIRECRACKERS].SetLoc(BERG);
+    nns[SEN].SetWord("SEN");
+    nns[SEN].SetCode(SEN);
+    nns[SEN].SetDescription("some money");
+    nns[SEN].SetCarry(true);
+    nns[SEN].SetLoc(NONE);
+    nns[RICE].SetWord("RICE");
+    nns[RICE].SetCode(RICE);
+    nns[RICE].SetDescription("a serving of delicious rice");
+    nns[RICE].SetCarry(true);
+    nns[RICE].SetLoc(OUTSKIRTS);
 }
 void section_command(string Cmd, string &wd1, string &wd2)
 {
@@ -355,27 +372,24 @@ void section_command(string Cmd, string &wd1, string &wd2)
 }
 void look_around(int loc, rooms *rms, words *dir, nouns *nns)
 {
-                                                                                        //CONTAINS ACCESS .notation REPLACE WIHT GETTERS/SETTERS
     int i;
     
     cout << "I am in a " << rms[loc].GetDesc() << "." << endl;       
-	//ACCESS .notation was used
+	
     for(i = 0; i < DIRS; i++)
     {
-        if(rms[loc].exits_to_room[i] != NONE)      
-		 //ACCESS .notation was used
+        if(rms[loc].GetExits()[&i] != NONE)      
+		 
         {
-            cout << "There is an exit " << dir[i].word << " to a " << rms[rms[loc].exits_to_room[i]].GetDesc() << "." << endl; 
-			//ACCESS .notation was used
+            cout << "There is an exit " << dir[i].GetWord() << " to a " << rms[rms[loc].GetExits()[&i]].GetDesc() << "." << endl; 
         }
     }
-
     //The look command should check which objects (nouns) are in the current room and report them to the player
     for(i = 0; i < NOUNS; i++)
     {
-        if(nns[i].location == loc)                                                     //ACCESS .notation was used
+        if(nns[i].GetLoc() == loc)   
         {
-            cout << "I see " << nns[i].description << "." << endl;                          //ACCESS .notation was used
+            cout << "I see " << nns[i].GetDesc() << "." << endl;  
         }
     }
 }
@@ -383,20 +397,21 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
 {
     static bool door_state = false; //Door is closed by default
     int i;
-	words word();
+	// words word(*dir);
 
     for(i = 0; i < DIRS; i++)
     {
-        if(wd1 == dir[i].word)
+        if(wd1 == dir[i].GetWord())
         {
-            if(rms[loc].exits_to_room[dir[i].code] != NONE)
+            if(rms[loc].GetExits(dir[i].GetCode()) != NONE)
+            // rms[OUTSKIRTS].SetExits(WEST,OUTSKIRTS);
             {
-                loc = rms[loc].exits_to_room[dir[i].code];
-                cout << "I am now in a " << rms[loc].description << "." << endl;
+                loc = rms[loc].GetExits(dir[i].GetCode());
+                cout << "I am now in a " << rms[loc].GetDesc() << "." << endl;
                 // A special case for the corridor storeroom door.
                 if(loc == STOREROOM || loc == GATE)
 				{
-                    nns[STORE_DOOR].location = loc;
+                    nns[STORE_DOOR].GetLoc() = loc;
                 return true;
 				}
             }
@@ -413,9 +428,9 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
 
     for(i = 0; i < VERBS; i++)
     {
-        if(wd1 == vbs[i].word)
+        if(wd1 == vbs[i].GetWord())
         {
-            VERB_ACTION = vbs[i].code;
+            VERB_ACTION = vbs[i].GetCode();
             break;
         }
     }
@@ -424,9 +439,9 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
     {
         for(i = 0; i < NOUNS; i++)
         {
-            if(wd2 == nns[i].word)
+            if(wd2 == nns[i].GetWord())
             {
-                NOUN_MATCH = nns[i].code;
+                NOUN_MATCH = nns[i].GetCode();
                 break;
             }
         }
@@ -447,10 +462,10 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
                 if(door_state == false)
                 {
                     door_state = true;
-                    rms[GATE].exits_to_room[EAST] = STOREROOM;
-                    rms[STOREROOM].exits_to_room[WEST] = GATE;
-                    nns[STORE_DOOR].description.clear();
-                    nns[STORE_DOOR].description.assign("an open store room door");
+                    rms[GATE].GetExits()[EAST] = STOREROOM;
+                    rms[STOREROOM].GetExits()[WEST] = GATE;
+                    nns[STORE_DOOR].GetDesc().clear();
+                    nns[STORE_DOOR].GetDesc().assign("an open store room door");
                     cout << "I have opened the door." << endl;
                     return true;
                 }
@@ -491,19 +506,28 @@ int main()
     string word_1;
     string word_2;
 
-	vector<string>rooms;
-	set_rooms;
-	
+    rooms room;
+	room.set_rooms(&room);
 
-    // words directions[DIRS];
-	vector<string>dir;
-    dir.set_directions(directions);
+	words directions;
+	directions.set_directions(&directions);
 
-    words verbs[VERBS];
-    set_verbs(verbs);
+	verbs verb;
+	verb.set_verbs(verb);
 
-    nouns nouns[NOUNS];
-    set_nouns(nouns);
+	// Added code
+	nouns noun;
+	nouns.set_nouns(&nouns);
+	// rooms room[ROOMS];
+    // set_rooms(room);
+
+    // set_directions(dir);
+
+    // words verbs[VERBS];
+    // set_verbs(verbs);
+
+    // nouns nouns[NOUNS];
+    // set_nouns(nouns);
 
     int location = VALLEY;
 
