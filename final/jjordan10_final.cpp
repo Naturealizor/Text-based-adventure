@@ -148,23 +148,6 @@ class verbs {
 
 };
 
-
-
-// void en_Rooms(vector<string>&vRooms){
-// 		vRooms.push_back("OUTSKIRTS");
-// 		vRooms.push_back("BERG");
-// 		vRooms.push_back("VALLEY");
-// 		vRooms.push_back("TEMPLE");
-// 		vRooms.push_back("STABLES");
-// 		vRooms.push_back("GATE");
-// 		vRooms.push_back("STOREROOM");
-// 		vRooms.push_back("FOUNTAINHEAD");
-// 		vRooms.push_back("GARDEN");
-// 		vRooms.push_back("POND");
-// 		vRooms.push_back("CASTLE");
-
-// }
-
 void rooms::set_rooms(rooms *rms)
 {
 	// enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE};
@@ -182,103 +165,103 @@ void rooms::set_rooms(rooms *rms)
 	// 	vRooms.push_back("CASTLE");
 	
 	
-    rms[OUTSKIRTS].description.assign("Ashina Outskirts");
-    rms[OUTSKIRTS].exits_to_room[NORTH] = NONE;
-    rms[OUTSKIRTS].exits_to_room[EAST] = NONE;
-    rms[OUTSKIRTS].exits_to_room[SOUTH] = VALLEY;
-    rms[OUTSKIRTS].exits_to_room[WEST] = NONE;
+    rms[OUTSKIRTS].SetDescription("Ashina Outskirts");
+    rms[OUTSKIRTS].SetExits[EAST] = NONE;
+    rms[OUTSKIRTS].SetExits[EAST] = NONE;
+    rms[OUTSKIRTS].SetExits[SOUTH] = VALLEY;
+    rms[OUTSKIRTS].SetExits[WEST] = NONE;
 
     rms[BERG].description.assign("Undead Berg");
-    rms[BERG].exits_to_room[NORTH] = NONE;
-    rms[BERG].exits_to_room[EAST] = NONE;
-    rms[BERG].exits_to_room[SOUTH] = TEMPLE;
-    rms[BERG].exits_to_room[WEST] = NONE;
+    rms[BERG].SetExits[NORTH] = NONE;
+    rms[BERG].SetExits[EAST] = NONE;
+    rms[BERG].SetExits[SOUTH] = TEMPLE;
+    rms[BERG].SetExits[WEST] = NONE;
 
     rms[VALLEY].description.assign("Unseen Valley");
-    rms[VALLEY].exits_to_room[NORTH] = OUTSKIRTS;
-    rms[VALLEY].exits_to_room[EAST] = TEMPLE;
-    rms[VALLEY].exits_to_room[SOUTH] = NONE;
-    rms[VALLEY].exits_to_room[WEST] = NONE;
+    rms[VALLEY].SetExits[NORTH] = OUTSKIRTS;
+    rms[VALLEY].SetExits[EAST] = TEMPLE;
+    rms[VALLEY].SetExits[SOUTH] = NONE;
+    rms[VALLEY].SetExits[WEST] = NONE;
 
     rms[TEMPLE].description.assign("Dilapidated Temple");
-    rms[TEMPLE].exits_to_room[NORTH] = BERG;
-    rms[TEMPLE].exits_to_room[EAST] = STABLES;
-    rms[TEMPLE].exits_to_room[SOUTH] = GATE;
-    rms[TEMPLE].exits_to_room[WEST] = VALLEY;
+    rms[TEMPLE].SetExits[NORTH] = BERG;
+    rms[TEMPLE].SetExits[EAST] = STABLES;
+    rms[TEMPLE].SetExits[SOUTH] = GATE;
+    rms[TEMPLE].SetExits[WEST] = VALLEY;
 
     rms[STABLES].description.assign("Stables");
-    rms[STABLES].exits_to_room[NORTH] = NONE;
-    rms[STABLES].exits_to_room[EAST] = NONE;
-    rms[STABLES].exits_to_room[SOUTH] = NONE;
-    rms[STABLES].exits_to_room[WEST] = TEMPLE;
+    rms[STABLES].SetExits[NORTH] = NONE;
+    rms[STABLES].SetExits[EAST] = NONE;
+    rms[STABLES].SetExits[SOUTH] = NONE;
+    rms[STABLES].SetExits[WEST] = TEMPLE;
 
     rms[GATE].description.assign("Castle Gate");
-    rms[GATE].exits_to_room[NORTH] = TEMPLE;
-    rms[GATE].exits_to_room[EAST] = NONE;
-    rms[GATE].exits_to_room[SOUTH] = GARDEN;
-    rms[GATE].exits_to_room[WEST] = NONE;
+    rms[GATE].SetExits[NORTH] = TEMPLE;
+    rms[GATE].SetExits[EAST] = NONE;
+    rms[GATE].SetExits[SOUTH] = GARDEN;
+    rms[GATE].SetExits[WEST] = NONE;
 
     rms[STOREROOM].description.assign("Store Room");
-    rms[STOREROOM].exits_to_room[NORTH] = NONE;
-    rms[STOREROOM].exits_to_room[EAST] = NONE;
-    rms[STOREROOM].exits_to_room[SOUTH] = NONE;
-    rms[STOREROOM].exits_to_room[WEST] = NONE;
+    rms[STOREROOM].SetExits[NORTH] = NONE;
+    rms[STOREROOM].SetExits[EAST] = NONE;
+    rms[STOREROOM].SetExits[SOUTH] = NONE;
+    rms[STOREROOM].SetExits[WEST] = NONE;
 
     rms[FOUNTAINHEAD].description.assign("Fountainhead");
-    rms[FOUNTAINHEAD].exits_to_room[NORTH] = NONE;
-    rms[FOUNTAINHEAD].exits_to_room[EAST] = GARDEN;
-    rms[FOUNTAINHEAD].exits_to_room[SOUTH] = CASTLE;
-    rms[FOUNTAINHEAD].exits_to_room[WEST] = NONE;
+    rms[FOUNTAINHEAD].SetExits[NORTH] = NONE;
+    rms[FOUNTAINHEAD].SetExits[EAST] = GARDEN;
+    rms[FOUNTAINHEAD].SetExits[SOUTH] = CASTLE;
+    rms[FOUNTAINHEAD].SetExits[WEST] = NONE;
 
     rms[GARDEN].description.assign("tranquil garden");
-    rms[GARDEN].exits_to_room[NORTH] = GATE;
-    rms[GARDEN].exits_to_room[EAST] = POND;
-    rms[GARDEN].exits_to_room[SOUTH] = NONE;
-    rms[GARDEN].exits_to_room[WEST] = FOUNTAINHEAD;
+    rms[GARDEN].SetExits[NORTH] = GATE;
+    rms[GARDEN].SetExits[EAST] = POND;
+    rms[GARDEN].SetExits[SOUTH] = NONE;
+    rms[GARDEN].SetExits[WEST] = FOUNTAINHEAD;
 
     rms[POND].description.assign("Coy Pond");
-    rms[POND].exits_to_room[NORTH] = NONE;
-    rms[POND].exits_to_room[EAST] = NONE;
-    rms[POND].exits_to_room[SOUTH] = NONE;
-    rms[POND].exits_to_room[WEST] = GARDEN;
+    rms[POND].SetExits[NORTH] = NONE;
+    rms[POND].SetExits[EAST] = NONE;
+    rms[POND].SetExits[SOUTH] = NONE;
+    rms[POND].SetExits[WEST] = GARDEN;
 
     rms[CASTLE].description.assign("Ashina Castle");
-    rms[CASTLE].exits_to_room[NORTH] = FOUNTAINHEAD;
-    rms[CASTLE].exits_to_room[EAST] = NONE;
-    rms[CASTLE].exits_to_room[SOUTH] = NONE;
-    rms[CASTLE].exits_to_room[WEST] = NONE;
+    rms[CASTLE].SetExits[NORTH] = FOUNTAINHEAD;
+    rms[CASTLE].SetExits[EAST] = NONE;
+    rms[CASTLE].SetExits[SOUTH] = NONE;
+    rms[CASTLE].SetExits[WEST] = NONE;
 }
 void words::set_directions(words *dir)
 {
 	// REPLACE ACCESS .notations with SETTERS
-    dir[NORTH].code = NORTH;
-    dir[NORTH].word = "NORTH";
-    dir[EAST].code = EAST;
-    dir[EAST].word = "EAST";
-    dir[SOUTH].code = SOUTH;
-    dir[SOUTH].word = "SOUTH";
-    dir[WEST].code = WEST;
-    dir[WEST].word = "WEST";
+    dir[NORTH].SetCode(NORTH);
+    dir[NORTH].SetWord("NORTH");
+    dir[EAST].SetCode(EAST);
+    dir[EAST].SetWord("EAST");
+    dir[SOUTH].SetCode(SOUTH);
+    dir[SOUTH].SetWord("SOUTH");
+    dir[WEST].SetCode(WEST);
+    dir[WEST].SetWord("WEST");
 }
 void words::set_verbs(words *vbs)
 {
 	//REPLACE ACCESS .notations with SETTERS
-    vbs[GET].code = GET;
-    vbs[GET].word = "GET";
-    vbs[DROP].code = DROP;
-    vbs[DROP].word = "DROP";
-    vbs[USE].code = USE;
-    vbs[USE].word = "USE";
-    vbs[OPEN].code = OPEN;
-    vbs[OPEN].word = "OPEN";
-    vbs[CLOSE].code = CLOSE;
-    vbs[CLOSE].word = "CLOSE";
-    vbs[EXAMINE].code = EXAMINE;
-    vbs[EXAMINE].word = "EXAMINE";
-    vbs[INVENTORY].code = INVENTORY;
-    vbs[INVENTORY].word = "INVENTORY";
-    vbs[LOOK].code = LOOK;
-    vbs[LOOK].word = "LOOK";
+    vbs[GET].SetCode(GET);
+    vbs[GET].SetWord("GET");
+    vbs[DROP].SetCode(DROP);
+    vbs[DROP].SetWord("DROP");
+    vbs[USE].SetCode(USE);
+    vbs[USE].SetWord("USE");
+    vbs[OPEN].SetCode(OPEN);
+    vbs[OPEN].SetWord("OPEN");
+    vbs[CLOSE].SetCode(CLOSE);
+    vbs[CLOSE].SetWord("CLOSE");
+    vbs[EXAMINE].SetCode(EXAMINE);
+    vbs[EXAMINE].SetWord("EXAMINE");
+    vbs[INVENTORY].SetCode(INVENTORY);
+    vbs[INVENTORY].SetWord("INVENTORY");
+    vbs[LOOK].SetCode(LOOK);
+    vbs[LOOK].SetWord("LOOK");
 }
 void nouns::set_nouns(nouns *nns)
 {
@@ -411,7 +394,7 @@ bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, rooms *rms
                 // A special case for the corridor storeroom door.
                 if(loc == STOREROOM || loc == GATE)
 				{
-                    nns[STORE_DOOR].GetLoc() = loc;
+                   nns [STORE_DOOR].SetLoc(loc) = loc;
                 return true;
 				}
             }
