@@ -97,7 +97,7 @@ class noun
 };
 */
 
-void set_rooms(room *rms)
+void set_rooms(vector<room>&rms)
 {
                                                                 //REPLACE ACCES .notations WITH SETTERS
     rms[SPORTSHOP].description.assign("sports shop");
@@ -294,8 +294,8 @@ void section_command(string Cmd, string &wd1, string &wd2)
     if(words.size() > 2)
         cout << "Command too long. Only type one or two words (direction or verb and noun)" << endl;
 }
-
-void look_around(int loc, room *rms, words *dir, noun *nns)
+                        //vector<room>&rms
+void look_around(int loc, vector<room>&rms, words *dir, noun *nns)
 {
 
     int i;
@@ -319,8 +319,8 @@ void look_around(int loc, room *rms, words *dir, noun *nns)
     }
 
 }
-
-bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, room *rms, noun *nns)
+                                                                    //vector<room>&rms
+bool parser(int &loc, string wd1, string wd2, words *dir, words *vbs, vector<room>&rms, noun *nns)
 {
     static bool door_state = false; //Door is closed by default
 
@@ -426,7 +426,9 @@ int main()
     string word_1;
     string word_2;
 
-    room rooms[ROOMS];
+    // room rooms[ROOMS];
+
+    vector<room> rooms(ROOMS);
     set_rooms(rooms);
 
     words directions[DIRS];
