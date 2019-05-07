@@ -189,7 +189,6 @@ void set_rooms(vector<room>&rms)
     rms.push_back(room("KITCHEN", BERG, ARENA, BARRACKS, NONE));
     rms.push_back(room("BATHROOM", TEMPLE, NONE, NONE, NONE));
     rms.push_back(room("LAKE", VALLEY, NONE, NONE, NONE));
-    // NORTH EAST SOUTH WEST
 }
 void set_directions(vector<words>&dir)
 {
@@ -213,22 +212,22 @@ void set_verbs(vector<verb>&vbs)
 }
 void set_nouns(vector<noun>&nns)
 {
-    nns.push_back(noun("DOOR", STORE_DOOR, "The gate is closed from this side", false, GATES));
-    nns.push_back(noun("SHURIKEN", SHURIKEN, "Shinobis Shuriken", true, OUTSKIRTS));
-    nns.push_back(noun("FLAME_VENT", FLAME_VENT, "Flame Vent", true, VALLEY));
-    nns.push_back(noun("FIRECRACKERS", FIRECRACKERS, "Robertos Firecrackers", true, BERG));
-    nns.push_back(noun("SEN", SEN, "Some money", true, TEMPLE));
-    nns.push_back(noun("RICE", RICE, "A serving of delicious rice", true, OUTSKIRTS));
-    nns.push_back(noun("FUSHIGIRI", FUSHIGIRI, "The Mortal Blade", true, FOUNTAINHEAD));
-    nns.push_back(noun("GOURD", GOURD, "A healing gourd", true, TEMPLE));
-    nns.push_back(noun("AXE", AXE, "Heavy axe", true, STABLES));
-    nns.push_back(noun("BALLOONS", BALLOONS, "Mibu Spirit Balloons", true, GARDEN));
-    nns.push_back(noun("SUGAR", SUGAR, "Gachin Sugar for stealth", true, POND));
-    nns.push_back(noun("CLOAK", CLOAK, "Traveling cload", true, GATES));
-    nns.push_back(noun("DAGGER", DAGGER, "A deadly sidearm", true, STOREROOM));
-    nns.push_back(noun("RING", RING, "Ring of the Illusory Halls", true, FOUNTAINHEAD));
-    nns.push_back(noun("SPEAR", SPEAR, "Folding Spear", true, OUTSKIRTS));
-    nns.push_back(noun("ASH", ASH, "Bundle of Ash", true, BERG));
+    nns.push_back(noun("STORE_DOOR", STORE_DOOR, "door to the closet", STOREROOM, false));
+    nns.push_back(noun("SHURIKEN", SHURIKEN, "Shinobis Shuriken", OUTSKIRTS, true));
+    nns.push_back(noun("FLAME_VENT", FLAME_VENT, "Flame Vent", VALLEY, true));
+    nns.push_back(noun("FIRECRACKERS", FIRECRACKERS, "Robertos Firecrackers", BERG, true));
+    nns.push_back(noun("SEN", SEN, "some money", TEMPLE, true));
+    nns.push_back(noun("RICE", RICE, "a serving of delicious rice", KITCHEN, true));
+    nns.push_back(noun("FUSHIGIRI", FUSHIGIRI, "the Mortal Blade", BARRACKS, true));
+    nns.push_back(noun("GOURD", GOURD, "a healing gourd", TEMPLE, true));
+    nns.push_back(noun("AXE", AXE, "Heavy axe", STABLES, true));
+    nns.push_back(noun("BALLOONS", BALLOONS, "Mibu Spirit Balloons", GARDEN, true));
+    nns.push_back(noun("SUGAR", SUGAR, "Gachin Sugar for stealth", POND, true));
+    nns.push_back(noun("CLOAK", CLOAK, "Traveling cloak", VILLAGE, true));
+    nns.push_back(noun("DAGGER", DAGGER, "a deadly sidearm", STOREROOM, true));
+    nns.push_back(noun("RING", RING, "Ring of the Illusory Halls", FOUNTAINHEAD, true));
+    nns.push_back(noun("SPEAR", SPEAR, "Folding Spear", ARENA, true));
+    nns.push_back(noun("ASH", ASH, "Bundle of Ash", GRAVEYARD, true));
 }
 void section_command(string Cmd, string &wd1, string &wd2)
 {
@@ -305,7 +304,7 @@ void look_around(int loc, vector<room>&rms, vector<words>&dir, vector<noun>&nns)
 {
     int i;
     
-    cout << "I am in a " << rms[loc].GetDesc() << "." << endl;       
+    cout << "You have entered the " << rms[loc].GetDesc() << "." << endl;       
 	
     for(i = 0; i < DIRS; i++)
     {
@@ -319,7 +318,7 @@ void look_around(int loc, vector<room>&rms, vector<words>&dir, vector<noun>&nns)
     {
         if(nns[i].GetLoc() == loc)   
         {
-            cout << "I see " << nns[i].GetDesc() << "." << endl;  
+            cout << "You see " << nns[i].GetDesc() << " in the area." << endl;  
         }
     }
 }
@@ -363,13 +362,15 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
             break;
         }
     }
-
+    // if word2 is not an empty string
     if(wd2 != "")
     {
+        // loop through nouns
         for(i = 0; i < NOUNS; i++)
         {
             if(wd2 == nns[i].GetWord())
             {
+                // 
                 NOUN_MATCH = nns[i].GetCode();
                 break;
             }
@@ -391,13 +392,14 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
     {
         if(NOUN_MATCH == STORE_DOOR)
         {
-            if(loc == GATES || loc == STOREROOM)
+            if(loc == STOREROOM)
             {
                 if(door_state == false)
                 {
+                    // FIX ME 
                     door_state = true;
-                    rms[GATES].SetExits(EAST, STOREROOM);
-                    rms[STOREROOM].SetExits(WEST, GATES);
+                    // rms[GATES].SetExits(EAST, STOREROOM);
+                    // rms[STOREROOM].SetExits(EAST, STABLES);
                     nns[STORE_DOOR].SetDesc("");
                     nns[STORE_DOOR].SetDesc("an open store room door");
                     cout << "I have opened the door." << endl;
@@ -450,10 +452,12 @@ int main()
 
     int location = TEMPLE;
 
+    cout << "\nWelcome to the final adventure for this semester! I'm glad we were all able to make it through!\n" << "To start off with, you are in the temple to the south just outside of the castle. Feel free to explore and see what you can find.\n" << "Your options are 'look' 'open' 'rest' or you can type a cardinal direction.\n";
+
     while(word_1 != "QUIT")
     {
         command.clear();
-        cout << "What would you like to do? ";
+        cout << "\nWhat would you like to do?\n";
         getline(cin, command);
 
         word_1.clear();

@@ -19,12 +19,12 @@
 			-					-	-					-	-					-	-					-			-					-
 			+		Estate		+	+		Tower		+	+		Castle		+	+	Fountain Head	+			+		Pagoda		+
 			-					-	-					-	-					-	-					-			-					-
-			+					+	+					+	+					+	+					+			+					+
-			-					-	-					-	-					-	-					-			-					-
+			+					+	+					+	+					+	+		items:		+			+					+
+			-					-	-					-	-					-	-		 RING		-			-					-
 			+ - + - + - + - + - +	+ - + - + - + - + - +	+ - + - + - + - + - +	+ - + - + - + - + - +			+ - + - + - + - + - +
 
 			+ - + - + - + - + - +																					+ - + - + - + - + - +	
-			-					-								Castle Entrance												-					-	
+			-					-								Castle Entrance										-					-	
 			+		Shrine		+																					+	   Cliffs		+	
 			-					-																					-					-	
 			+					+																					+					+	
@@ -40,36 +40,36 @@
 
 
 			+ - + - + - + - + - +	+ - + - + - + - + - +
-			-					-	-					-
-			+	Store Room		+	+		Stables		+
-			-					-	-					-
-			+					+	+					+
-			-					-	-					-
+			-	 Store Room		-	-					-
+			+					+	+		Stables		+
+			-		items:		-	-					-
+			+	  STORE_DOOR	+	+		items:		+
+			-	   DAGGER		-	-		 AXE		-
 			+ - + - + - + - + - +	+ - + - + - + - + - +																	Outside Town
 
 			+ - + - + - + - + - +							+ - + - + - + - + - +	+ - + - + - + - + - +			+ - + - + - + - + - + 
 West		-					-							-					-	-					-			-					-				East
 			+		Berg		+							+		Gates		+	+		Pond		+			+	  Outskirts		+	
 			-					-							-					-	-					-			-					-
-			+					+							+					+	+					+			+					+
-			-					-							-					-	-					-			-					-
+			+		items:		+							+					+	+		items:		+			+		items:		+
+			-	 FIRECRACKERS	-							-					-	-		SUGAR		-			-	   SHURIKEN		-
 			+ - + - + - + - + - +							+ - + - + - + - + - +	+ - + - + - + - + - +			+ - + - + - + - + - +
 
 																											
 			+ - + - + - + - + - +													+ - + - + - + - + - +			+ - + - + - + - + - +
 			-					-													-					-			-					-
-			+	   Kitchen		+													+	   Arena		+			+	   Forest		+
+			+	   Kitchen		+													+	    Arena		+			+	   Forest		+
 			-					-													-					-			-					-
-			+					+				Castle Square						+					+			+					+
-			-					-													-					-			-					-
+			+	   items:		+				Castle Square						+		items:		+			+					+
+			-		RICE		-													-		SPEAR		-			-					-
 			+ - + - + - + - + - +													+ - + - + - + - + - +			+ - + - + - + - + - +
 
 			+ - + - + - + - + - +													+ - + - + - + - + - +			+ - + - + - + - + - +
 			-					-													-					-			-					-
 			+	  Barracks		+													+	  Merchant		+			+	   Village		+
 			-					-													-					-			-					-
-			+					+													+					+			+					+
-			-					-													-					-			-					-
+			+	   items:		+													+					+			+	    items:		+
+			-	  FUSHIGIRI		-													-					-			-	    CLOAK		-
 			+ - + - + - + - + - +													+ - + - + - + - + - +			+ - + - + - + - + - +
 
 																													+ - + - + - + - + - +
@@ -77,23 +77,23 @@ West		-					-							-					-	-					-			-					-				East
 			-					-																					+	  Farmland		+
 			+	  Graveyard		+																					-					-
 			-					-																					+					+
-			+					+																					-					-
-			-					-																					+ - + - + - + - + - +
+			+	   items:		+																					-					-
+			-		ASH			-																					+ - + - + - + - + - +
 			+ - + - + - + - + - +	
 															+ - + - + - + - + - +	+ - + - + - + - + - +							
 															-					-	-					-	
 															+		Garden		+	+		Well		+	
 															-					-	-					-	
-							Outside Town					+					+	+					+	
-															-					-	-					-	
+							Outside Town					+		items:		+	+					+	
+															-	   BALLOONS		-	-					-	
 															+ - + - + - + - + - +	+ - + - + - + - + - +	
 
 			+ - + - + - + - + - +							+ - + - + - + - + - +	+ - + - + - + - + - +
-			-					-							-					-	-					-
-			+		Valley		+							+		Temple		+	+	  Basement		+
-			-					-							-					-	-					-
-			+					+							+					+	+					+
-			-					-							-					-	-					-
+			-					-							-		Temple		-	-					-
+			+		Valley		+							+					+	+	  Basement		+
+			-					-							-		items:		-	-					-
+			+		items:		+							+		GOURD		+	+					+
+			-	  FLAME_VENT	-							-		 SEN		-	-					-
 			+ - + - + - + - + - +							+ - + - + - + - + - +	+ - + - + - + - + - +
 
 															+ - + - + - + - + - +	
@@ -136,19 +136,3 @@ West		-					-							-					-	-					-			-					-				East
 
 
 
-+ - + - + - + - + - +	
--					-	
-+	  Catacombs		+	
--					-	
-+					+	
--					-	
-+ - + - + - + - + - +
-
-
-+ - + - + - + - + - +	
--					-	
-+	  Catacombs		+	
--					-	
-+					+	
--					-	
-+ - + - + - + - + - +
