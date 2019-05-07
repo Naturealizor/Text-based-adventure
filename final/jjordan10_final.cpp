@@ -3,9 +3,8 @@
     V2 created public and private class members
     V3 added constructors
     V4 changed .notations to getters and setters
-    V5 trying to alter main() to classes, having trouble
-    V6 added additional rooms, verbs, and nouns
-    V7 trying to convert arrays into vectors
+    V5 added additional rooms, verbs, and nouns
+    V6 converted arrays to vectors
 
 */
 
@@ -19,8 +18,7 @@ using namespace std;
 
 
 enum en_DIRS {NORTH, EAST, SOUTH, WEST};
-enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE, BASEMENT, WELL, PAGODA, SHRINE, ARENA, ESTATE, VILLAGE, CATACOMBS, TOWER, BARRACKS, MERCHANT,
-FARMLAND, FOREST, GRAVEYARD, BRIDGE, CLIFFS, KITCHEN, BATHROOM};    // ADDED BASEMENT - BATHROOM, CHANGED ALL ROOMS
+enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATES, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE, BASEMENT, WELL, PAGODA, SHRINE, ARENA, ESTATE, VILLAGE, CATACOMBS, TOWER, BARRACKS, MERCHANT,FARMLAND, FOREST, GRAVEYARD, BRIDGE, CLIFFS, KITCHEN, BATHROOM, LAKE};    // CHANGED ALL ROOMS
 enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, INVENTORY, LOOK, REST, STORE};    // ADDED REST AND STORE
 enum en_NOUNS {STORE_DOOR, SHURIKEN, FLAME_VENT, FIRECRACKERS, SEN, RICE, FUSHIGIRI, GOURD, AXE, BALLOONS, SUGAR, CLOAK, DAGGER, RING, SPEAR, ASH};    // ADDED KATANA - ASH
 
@@ -161,37 +159,37 @@ public:
 // Replaced room *rms with the vector<room>&rms
 void set_rooms(vector<room>&rms)
 {
-    rms.push_back(room("OUTSKIRTS", NONE, NONE, NONE, POND));
-    rms.push_back(room("BERG", STORE_DOOR, NONE, NONE, NONE));
-    rms.push_back(room("VALLEY", BERG, TEMPLE, NONE, NONE));
-    rms.push_back(room("TEMPLE", GARDEN, NONE, NONE, VALLEY));
-    rms.push_back(room("STABLES", NONE, NONE, NONE, STORE_DOOR));
-    rms.push_back(room("GATE", CASTLE, POND, GARDEN, BERG));
-    rms.push_back(room("STOREROOM", NONE, STABLES, BERG, NONE));
-    rms.push_back(room("FOUNTAINHEAD", NONE, NONE, NONE, CASTLE));
-    rms.push_back(room("GARDEN", GATE, NONE, TEMPLE, NONE));
-    rms.push_back(room("POND", FOUNTAINHEAD, OUTSKIRTS, NONE, GATE));
-    rms.push_back(room("CASTLE", NONE, FOUNTAINHEAD, GATE, NONE));
-    // NEED TO FINISH EXITS FOR BELOW
-    rms.push_back(room("BASEMENT", GARDEN, NONE, NONE, VALLEY));
-    rms.push_back(room("WELL", NONE, NONE, NONE, NONE));
-    rms.push_back(room("PAGODA", NONE, NONE, NONE, NONE));
-    rms.push_back(room("SHRINE", NONE, NONE, NONE, NONE));
-    rms.push_back(room("ARENA", NONE, NONE, NONE, NONE));
-    rms.push_back(room("ESTATE", NONE, NONE, NONE, NONE));
-    rms.push_back(room("VILLAGE", NONE, NONE, NONE, NONE));
-    rms.push_back(room("CATACOMBS", NONE, NONE, NONE, NONE));
-    rms.push_back(room("TOWER", NONE, NONE, NONE, NONE));
-    rms.push_back(room("BARRACKS", NONE, NONE, NONE, NONE));
-    rms.push_back(room("MERCHANT", NONE, NONE, NONE, NONE));
-    rms.push_back(room("FARMLAND", NONE, NONE, NONE, NONE));
-    rms.push_back(room("FOREST", NONE, NONE, NONE, NONE));
-    rms.push_back(room("GRAVEYARD", NONE, NONE, NONE, NONE));
-    rms.push_back(room("BRIDGE", NONE, NONE, NONE, NONE));
-    rms.push_back(room("CLIFFS", NONE, NONE, NONE, NONE));
-    rms.push_back(room("KITCHEN", NONE, NONE, NONE, NONE));
-    rms.push_back(room("BATHROOM", NONE, NONE, NONE, NONE));
-    rms.push_back(room("STREET", NONE, NONE, NONE, NONE));
+    rms.push_back(room("OUTSKIRTS", CLIFFS, NONE, FOREST, POND));
+    rms.push_back(room("BERG", STOREROOM, GATES, KITCHEN, NONE));
+    rms.push_back(room("VALLEY", GRAVEYARD, TEMPLE, NONE, NONE));
+    rms.push_back(room("TEMPLE", GARDEN, BASEMENT, BATHROOM, VALLEY));
+    rms.push_back(room("STABLES", NONE, NONE, NONE, STOREROOM));
+    rms.push_back(room("GATES", CASTLE, POND, GARDEN, BERG));
+    rms.push_back(room("STOREROOM", SHRINE, STABLES, BERG, NONE));
+    rms.push_back(room("FOUNTAINHEAD", NONE, PAGODA, NONE, CASTLE));
+    rms.push_back(room("GARDEN", GATES, NONE, TEMPLE, NONE));
+    rms.push_back(room("POND", FOUNTAINHEAD, OUTSKIRTS, NONE, GATES));
+    rms.push_back(room("CASTLE", CATACOMBS, FOUNTAINHEAD, GATES, TOWER));
+    rms.push_back(room("BASEMENT", WELL, NONE, NONE, TEMPLE));
+    rms.push_back(room("WELL", MERCHANT, NONE, BASEMENT, GARDEN));
+    rms.push_back(room("PAGODA", NONE, NONE, CLIFFS, FOUNTAINHEAD));
+    rms.push_back(room("SHRINE", ESTATE, NONE, NONE, NONE));
+    rms.push_back(room("ARENA", POND, NONE, MERCHANT, KITCHEN));
+    rms.push_back(room("ESTATE", NONE, TOWER, SHRINE, NONE));
+    rms.push_back(room("VILLAGE", FOREST, NONE, FARMLAND, NONE));
+    rms.push_back(room("CATACOMBS", NONE, NONE, CASTLE, NONE));
+    rms.push_back(room("TOWER", NONE, CASTLE, NONE, ESTATE));
+    rms.push_back(room("BARRACKS", KITCHEN, MERCHANT, BARRACKS, NONE));
+    rms.push_back(room("MERCHANT", ARENA, VILLAGE, WELL, BARRACKS));
+    rms.push_back(room("FARMLAND", VILLAGE, NONE, NONE, NONE));
+    rms.push_back(room("FOREST", OUTSKIRTS, NONE, VILLAGE, NONE));
+    rms.push_back(room("GRAVEYARD", BARRACKS, NONE, VALLEY, NONE));
+    rms.push_back(room("BRIDGE", CASTLE, NONE, GATES, NONE));
+    rms.push_back(room("CLIFFS", PAGODA, NONE, NONE, NONE));
+    rms.push_back(room("KITCHEN", BERG, ARENA, BARRACKS, NONE));
+    rms.push_back(room("BATHROOM", TEMPLE, NONE, NONE, NONE));
+    rms.push_back(room("LAKE", VALLEY, NONE, NONE, NONE));
+    // NORTH EAST SOUTH WEST
 }
 void set_directions(vector<words>&dir)
 {
@@ -215,7 +213,7 @@ void set_verbs(vector<verb>&vbs)
 }
 void set_nouns(vector<noun>&nns)
 {
-    nns.push_back(noun("DOOR", STORE_DOOR, "The gate is closed from this side", false, GATE));
+    nns.push_back(noun("DOOR", STORE_DOOR, "The gate is closed from this side", false, GATES));
     nns.push_back(noun("SHURIKEN", SHURIKEN, "Shinobis Shuriken", true, OUTSKIRTS));
     nns.push_back(noun("FLAME_VENT", FLAME_VENT, "Flame Vent", true, VALLEY));
     nns.push_back(noun("FIRECRACKERS", FIRECRACKERS, "Robertos Firecrackers", true, BERG));
@@ -226,7 +224,7 @@ void set_nouns(vector<noun>&nns)
     nns.push_back(noun("AXE", AXE, "Heavy axe", true, STABLES));
     nns.push_back(noun("BALLOONS", BALLOONS, "Mibu Spirit Balloons", true, GARDEN));
     nns.push_back(noun("SUGAR", SUGAR, "Gachin Sugar for stealth", true, POND));
-    nns.push_back(noun("CLOAK", CLOAK, "Traveling cload", true, GATE));
+    nns.push_back(noun("CLOAK", CLOAK, "Traveling cload", true, GATES));
     nns.push_back(noun("DAGGER", DAGGER, "A deadly sidearm", true, STOREROOM));
     nns.push_back(noun("RING", RING, "Ring of the Illusory Halls", true, FOUNTAINHEAD));
     nns.push_back(noun("SPEAR", SPEAR, "Folding Spear", true, OUTSKIRTS));
@@ -340,7 +338,7 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
                 cout << "I am now in a " << rms[loc].GetDesc() << "." << endl;
 
                 // A special case for the corridor storeroom door.
-                if(loc == STOREROOM || loc == GATE)
+                if(loc == STOREROOM || loc == GATES)
 				{
                    nns[STORE_DOOR].SetLoc(loc);
                 return true;
@@ -393,13 +391,13 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
     {
         if(NOUN_MATCH == STORE_DOOR)
         {
-            if(loc == GATE || loc == STOREROOM)
+            if(loc == GATES || loc == STOREROOM)
             {
                 if(door_state == false)
                 {
                     door_state = true;
-                    rms[GATE].SetExits(EAST, STOREROOM);
-                    rms[STOREROOM].SetExits(WEST, GATE);
+                    rms[GATES].SetExits(EAST, STOREROOM);
+                    rms[STOREROOM].SetExits(WEST, GATES);
                     nns[STORE_DOOR].SetDesc("");
                     nns[STORE_DOOR].SetDesc("an open store room door");
                     cout << "I have opened the door." << endl;
