@@ -19,7 +19,7 @@ using namespace std;
 
 
 enum en_DIRS {NORTH, EAST, SOUTH, WEST};
-enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE, BASEMENT, WELL, PAGODA, SHRINE, ARENA, ESTATE, VILLAGE, CATACOMBS,CRYPT, BARRACKS, MERCHANT,
+enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATE, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE, BASEMENT, WELL, PAGODA, SHRINE, ARENA, ESTATE, VILLAGE, CATACOMBS, TOWER, BARRACKS, MERCHANT,
 FARMLAND, FOREST, GRAVEYARD, BRIDGE, CLIFFS, KITCHEN, BATHROOM};    // ADDED BASEMENT - BATHROOM, CHANGED ALL ROOMS
 enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, INVENTORY, LOOK, REST, STORE};    // ADDED REST AND STORE
 enum en_NOUNS {STORE_DOOR, SHURIKEN, FLAME_VENT, FIRECRACKERS, SEN, RICE, FUSHIGIRI, GOURD, AXE, BALLOONS, SUGAR, CLOAK, DAGGER, RING, SPEAR, ASH};    // ADDED KATANA - ASH
@@ -37,9 +37,9 @@ private:
     string word;
     int code;
 public:
-    words(string word, int code){
-        word =" ";
-        code = 0;
+    words(string ThisWord, int ThisCode){
+        word = ThisWord;
+        code = ThisCode;
     }
     string GetWord(){
         return word;
@@ -94,11 +94,11 @@ private:
 public:
     
     // Constructor
-    noun(string word, int code, string desc, int loc, bool carry){
-        word = "";
-        code = 0;
-        description = desc;
-        location = loc;
+    noun(string GivenWord, int GivenCode, string GivenDesc, int GivenLoc, bool carry){
+        word = GivenWord;
+        code = GivenCode;
+        description = GivenDesc;
+        location = GivenLoc;
         can_carry = carry;
     };
     // Getters for the private 
@@ -140,9 +140,9 @@ private:
     string word;
     int code;
 public:
-    verb(string word, int code){
-        word = "";
-        code = 0;
+    verb(string GivenWord, int GivenCode){
+        word = GivenWord;
+        code = GivenCode;
     }
     string GetWord(){
         return word;
@@ -181,7 +181,7 @@ void set_rooms(vector<room>&rms)
     rms.push_back(room("ESTATE", NONE, NONE, NONE, NONE));
     rms.push_back(room("VILLAGE", NONE, NONE, NONE, NONE));
     rms.push_back(room("CATACOMBS", NONE, NONE, NONE, NONE));
-    rms.push_back(room("CRYPT", NONE, NONE, NONE, NONE));
+    rms.push_back(room("TOWER", NONE, NONE, NONE, NONE));
     rms.push_back(room("BARRACKS", NONE, NONE, NONE, NONE));
     rms.push_back(room("MERCHANT", NONE, NONE, NONE, NONE));
     rms.push_back(room("FARMLAND", NONE, NONE, NONE, NONE));
@@ -288,6 +288,21 @@ void section_command(string Cmd, string &wd1, string &wd2)
         cout << "Command too long. Only type one or two words (direction or verb and noun)" << endl;
     }
 }
+void rest(int loc, vector<room>&rms){
+    string input;
+
+    cout << "Did you want to take a break and rest for a while?" << "\nAre you sure you want to stop while you're in " << rms[loc].GetDesc() << "?\n";
+
+    cin >> input;
+
+    if(input == "yes" || input == "Yes" || input == "yeah" || input == "Yeah")
+    {
+        cout << "As you wish, stopping to reflect can be more helpful than one might assume.\n" << "How long would you like to rest?\n";
+        cin >> input;
+
+        cout << "Okay then, I'll wake you up then. Have a good rest\n";
+    }
+}
 void look_around(int loc, vector<room>&rms, vector<words>&dir, vector<noun>&nns)
 {
     int i;
@@ -368,6 +383,11 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
         look_around(loc, rms, dir, nns);
         return true;
     }
+    if(VERB_ACTION == REST)
+    {
+        rest(loc, rms);
+        return true;
+    }
 
     if(VERB_ACTION == OPEN)
     {
@@ -416,18 +436,18 @@ int main()
     string command;
     string word_1;
     string word_2;
-    if(debug) cout << "hi";
+    // if(debug) cout << "hi";
 
-    vector<room> rooms(ROOMS);
+    vector<room> rooms;
     set_rooms(rooms);
 
-    vector<words> directions(DIRS);
+    vector<words> directions;
     set_directions(directions);
 	
-    vector<verb> verbs(VERBS);
+    vector<verb> verbs;
     set_verbs(verbs);
 
-    vector<noun> nouns(NOUNS);
+    vector<noun> nouns;
     set_nouns(nouns);
 
     int location = TEMPLE;
