@@ -5,6 +5,7 @@
     V4 changed .notations to getters and setters
     V5 added additional rooms, verbs, and nouns
     V6 converted arrays to vectors
+    v7 added rest and get verbs(get kinda words)
 
 */
 
@@ -16,11 +17,10 @@
 
 using namespace std;
 
-
 enum en_DIRS {NORTH, EAST, SOUTH, WEST};
 enum en_ROOMS {OUTSKIRTS, BERG, VALLEY, TEMPLE, STABLES, GATES, STOREROOM, FOUNTAINHEAD, GARDEN, POND, CASTLE, BASEMENT, WELL, PAGODA, SHRINE, ARENA, ESTATE, VILLAGE, CATACOMBS, TOWER, BARRACKS, MERCHANT,FARMLAND, FOREST, GRAVEYARD, BRIDGE, CLIFFS, KITCHEN, BATHROOM, LAKE};    // CHANGED ALL ROOMS
-enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, INVENTORY, LOOK, REST, STORE};    // ADDED REST AND STORE
-enum en_NOUNS {STORE_DOOR, SHURIKEN, FLAME_VENT, FIRECRACKERS, SEN, RICE, FUSHIGIRI, GOURD, AXE, BALLOONS, SUGAR, CLOAK, DAGGER, RING, SPEAR, ASH};    // ADDED KATANA - ASH
+enum en_VERBS {GET, DROP, USE, OPEN, CLOSE, EXAMINE, FIGHT, LOOK, REST, STORE};    
+enum en_NOUNS {STORE_DOOR, SHURIKEN, FLAME_VENT, FIRECRACKERS, SEN, RICE, FUSHIGIRI, GOURD, AXE, BALLOONS, SUGAR, CLOAK, DAGGER, RING, SPEAR, ASH};   
 
 const int NONE = -1;
 const int DIRS = 4;
@@ -30,25 +30,30 @@ const int NOUNS = 16;
 
 bool debug = true;
 
-class words{
+class words {
 private:
     string word;
     int code;
 public:
-    words(string ThisWord, int ThisCode){
+    words(string ThisWord, int ThisCode)
+    {
         word = ThisWord;
         code = ThisCode;
     }
-    string GetWord(){
+    string GetWord()
+    {
         return word;
     }
-    void SetWord(string sWord){
+    void SetWord(string sWord)
+    {
         word = sWord;
     }
-    int GetCode(){
+    int GetCode()
+    {
         return code;
     }
-    void SetCode(int cde){
+    void SetCode(int cde)
+    {
         code = cde;
     }
 };
@@ -59,7 +64,8 @@ private:
     int exits_to_room[DIRS];
 public:
     // Constructor
-    room(string desc, int NORTH, int EAST, int SOUTH, int WEST){
+    room(string desc, int NORTH, int EAST, int SOUTH, int WEST)
+    {
         description = desc;
         exits_to_room[0] = NORTH;
         exits_to_room[1] = EAST;
@@ -67,14 +73,17 @@ public:
         exits_to_room[3] = WEST;
     };
     // Getters
-    string GetDesc(){
+    string GetDesc()
+    {
         return description;
     }
-    int GetExits(int dir){
+    int GetExits(int dir)
+    {
         return exits_to_room[dir];
     }
     // Setters
-    void SetDesc(string desc){
+    void SetDesc(string desc)
+    {
         description = desc;
     }
     void SetExits(int dir, int room){
@@ -92,43 +101,54 @@ private:
 public:
     
     // Constructor
-    noun(string GivenWord, int GivenCode, string GivenDesc, int GivenLoc, bool carry){
+    noun(string GivenWord, int GivenCode, string GivenDesc, int loc, bool carry)
+    {
         word = GivenWord;
         code = GivenCode;
         description = GivenDesc;
-        location = GivenLoc;
+        location = loc;
         can_carry = carry;
     };
     // Getters for the private 
-    string GetDesc(){
+    string GetDesc()
+    {
         return description;
     }
-    string GetWord(){
+    string GetWord()
+    {
         return word;
     }
-    int GetCode(){
+    int GetCode()
+    {
         return code;
     }
-    int GetLoc(){
+    int GetLoc()
+    {
         return location;
     }
-    bool GetCarry(){
+    bool GetCarry()
+    {
         return can_carry;  
     }
     // Setters
-    void SetDesc(string desc){
+    void SetDesc(string desc)
+    {
         description = desc;
     }
-    void SetWord(string wrd){
+    void SetWord(string wrd)
+    {
         word = wrd;
     }
-    void SetCode(int cde){
+    void SetCode(int cde)
+    {
         code = cde;
     }
-    void SetLoc(int loc){
+    void SetLoc(int loc)
+    {
         location = loc;
     }
-    void SetCarry(bool carry){
+    void SetCarry(bool carry)
+    {
         can_carry = carry;
     }
 };
@@ -138,20 +158,25 @@ private:
     string word;
     int code;
 public:
-    verb(string GivenWord, int GivenCode){
+    verb(string GivenWord, int GivenCode)
+    {
         word = GivenWord;
         code = GivenCode;
     }
-    string GetWord(){
+    string GetWord()
+    {
         return word;
     }
-    void SetWord(string wrd){
+    void SetWord(string wrd)
+    {
         word = wrd;
     }
-    int GetCode(){
+    int GetCode()
+    {
         return code;
     }
-    void SetCode(int cde){
+    void SetCode(int cde)
+    {
         code = cde;
     }
 
@@ -205,7 +230,7 @@ void set_verbs(vector<verb>&vbs)
     vbs.push_back(verb("OPEN", OPEN));
     vbs.push_back(verb("CLOSE", CLOSE));
     vbs.push_back(verb("EXAMINE", EXAMINE));
-    vbs.push_back(verb("INVENTORY", INVENTORY));
+    vbs.push_back(verb("FIGHT", FIGHT));
     vbs.push_back(verb("LOOK", LOOK));
     vbs.push_back(verb("REST", REST));
     vbs.push_back(verb("STORE", STORE));
@@ -270,10 +295,12 @@ void section_command(string Cmd, string &wd1, string &wd2)
 			}
         }
     }
-    if(words.size() == 0){
+    if(words.size() == 0)
+    {
         cout << "No command given" << endl;
     }
-    if(words.size() == 1){
+    if(words.size() == 1)
+    {
         wd1 = words.at(0);
     }
     if(words.size() == 2)
@@ -281,22 +308,39 @@ void section_command(string Cmd, string &wd1, string &wd2)
         wd1 = words.at(0);
         wd2 = words.at(1);
     }
-    if(words.size() > 2){
+    if(words.size() > 2)
+    {
         cout << "Command too long. Only type one or two words (direction or verb and noun)" << endl;
     }
+}
+void get(int loc, vector<noun>&nns)
+{
+    vector<string> inventory;
+
+    for(int i = 0; i < NOUNS; i++)
+    {
+        if(nns[i].GetLoc() == loc)
+        {
+            inventory.push_back(nns[i].GetDesc());
+        }
+    }
+
+    cout << "Your items:\n";
+	for (unsigned int i = 0; i < inventory.size(); ++i)
+	{
+		cout << inventory[i] << endl;
+	}
 }
 void rest(int loc, vector<room>&rms){
     string input;
 
-    cout << "Did you want to take a break and rest for a while?" << "\nAre you sure you want to stop while you're in " << rms[loc].GetDesc() << "?\n";
-
+    cout << "So you want to take a break and rest for a while?" << "\nAre you sure you want to stop while you're at the " << rms[loc].GetDesc() << "?\n";
     cin >> input;
 
     if(input == "yes" || input == "Yes" || input == "yeah" || input == "Yeah")
     {
-        cout << "As you wish, stopping to reflect can be more helpful than one might assume.\n" << "How long would you like to rest?\n";
+        cout << "\nAs you wish, stopping to reflect can be more helpful than one might assume.\n" << "How long would you like to rest?\n";
         cin >> input;
-
         cout << "Okay then, I'll wake you up then. Have a good rest\n";
     }
 }
@@ -334,13 +378,14 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
             if(rms[loc].GetExits(dir[i].GetCode()) != NONE)
             {
                 loc = rms[loc].GetExits(dir[i].GetCode());
-                cout << "I am now in a " << rms[loc].GetDesc() << "." << endl;
+                cout << "You am now in the " << rms[loc].GetDesc() << "." << endl;
 
                 // A special case for the corridor storeroom door.
-                if(loc == STOREROOM || loc == GATES)
+                if(loc == STOREROOM)
 				{
-                   nns[STORE_DOOR].SetLoc(loc);
-                return true;
+                    nns[STORE_DOOR].SetLoc(loc);
+                    cout << "To open the closet door, type in 'open store_door'.\n";
+                    return true;
 				}
             }
             else
@@ -370,7 +415,6 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
         {
             if(wd2 == nns[i].GetWord())
             {
-                // 
                 NOUN_MATCH = nns[i].GetCode();
                 break;
             }
@@ -380,6 +424,11 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
     if(VERB_ACTION == LOOK)
     {
         look_around(loc, rms, dir, nns);
+        return true;
+    }
+    if(VERB_ACTION == GET)
+    {
+        get(loc, nns);
         return true;
     }
     if(VERB_ACTION == REST)
@@ -395,14 +444,11 @@ bool parser(int &loc, string wd1, string wd2, vector<words>&dir, vector<verb>&vb
             if(loc == STOREROOM)
             {
                 if(door_state == false)
-                {
-                    // FIX ME 
+                { 
                     door_state = true;
-                    // rms[GATES].SetExits(EAST, STOREROOM);
-                    // rms[STOREROOM].SetExits(EAST, STABLES);
                     nns[STORE_DOOR].SetDesc("");
                     nns[STORE_DOOR].SetDesc("an open store room door");
-                    cout << "I have opened the door." << endl;
+                    cout << "I have opened the door.\n Yay!!" << endl;
                     return true;
                 }
                 else if(door_state == true)
@@ -436,7 +482,6 @@ int main()
     string command;
     string word_1;
     string word_2;
-    // if(debug) cout << "hi";
 
     vector<room> rooms;
     set_rooms(rooms);
@@ -452,7 +497,7 @@ int main()
 
     int location = TEMPLE;
 
-    cout << "\nWelcome to the final adventure for this semester! I'm glad we were all able to make it through!\n" << "To start off with, you are in the temple to the south just outside of the castle. Feel free to explore and see what you can find.\n" << "Your options are 'look' 'open' 'rest' or you can type a cardinal direction.\n";
+    cout << "\nWelcome to the final adventure for this semester! I'm glad we were all able to make it through!\n" << "To start off with, you are in the temple to the south just outside of the castle. Feel free to explore and see what you can find.\n" << "Your options are 'look' 'open' 'rest' 'get' or you can type a cardinal direction.\n";
 
     while(word_1 != "QUIT")
     {
